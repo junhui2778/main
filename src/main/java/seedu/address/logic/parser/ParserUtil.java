@@ -16,6 +16,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.test.TimeLimit;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -140,6 +141,20 @@ public class ParserUtil {
             throw new ParseException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
+    }
+
+    /**
+     * Parses {@code String timeLimit} into a float
+     *
+     * @throws ParseException if the given {@code timeLimit} is invalid
+     */
+    public static TimeLimit parseTimeLimit(String timeLimit) throws ParseException {
+        requireNonNull(timeLimit);
+        String trimmedTimeLimit = timeLimit.trim();
+        if (!TimeLimit.isValidTimeLimit(timeLimit)) {
+            throw new ParseException(TimeLimit.MESSAGE_TIME_LIMIT_CONSTRAINTS);
+        }
+        return new TimeLimit(trimmedTimeLimit);
     }
 
     /**

@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.List;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -91,6 +92,9 @@ public interface Model {
 
     /** Returns an unmodifiable view of the filtered card's list */
     ObservableList<Card> getFilteredCardList();
+
+    /** Returns an unmodifiable view of the filtered card's list given the predicate */
+    List<Card> getListOfCardFilteredByTag(Predicate<Card> predicate);
 
     /**
      * Updates the filter of the filtered card list to filter by the given {@code predicate}.

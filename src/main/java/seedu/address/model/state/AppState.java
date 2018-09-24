@@ -13,8 +13,10 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.MatchCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.TestMCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 /**
@@ -23,10 +25,12 @@ import seedu.address.logic.commands.UndoCommand;
 public class AppState {
     private static State currentState = State.NORMAL;
 
-    private static Set<String> normalCommands = new HashSet<>(Arrays.asList(AddCommand.COMMAND_WORD,
+    private static final Set<String> normalCommands = new HashSet<>(Arrays.asList(AddCommand.COMMAND_WORD,
             ClearCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD, EditCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
             FindCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ListCommand.COMMAND_WORD,
-            RedoCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD));
+            RedoCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, TestMCommand.COMMAND_WORD));
+
+    private static final Set<String> testMCommands = new HashSet<>(Arrays.asList(MatchCommand.COMMAND_WORD));
 
     public static void setAppState(State state) {
         currentState = state;
@@ -52,6 +56,9 @@ public class AppState {
 
         case NORMAL:
             return normalCommands;
+
+        case TESTM:
+            return testMCommands;
 
         default:
             return new HashSet<>();

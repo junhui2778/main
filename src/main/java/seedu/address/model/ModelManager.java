@@ -3,8 +3,11 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -165,6 +168,14 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredCardList(Predicate<Card> predicate) {
         requireNonNull(predicate);
         filteredCards.setPredicate(predicate);
+    }
+
+    @Override
+    public List<Card> getListOfCardFilteredByTag(Predicate<Card> predicate) {
+        List<Card> cards = Arrays.asList(filteredCards.toArray(new Card[filteredCards.size()]));
+        return cards.stream()
+                .filter(predicate)
+                .collect(Collectors.toList());
     }
 
     //=========== Undo/Redo =================================================================================
