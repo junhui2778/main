@@ -3,21 +3,14 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.StartTestMEvent;
+import seedu.address.commons.events.ui.StartTestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
-import seedu.address.model.card.Question;
 import seedu.address.model.card.TagIsKeywordPredicate;
 import seedu.address.model.state.AppState;
 import seedu.address.model.state.State;
@@ -57,10 +50,10 @@ public class TestMCommand extends Command {
             throw new CommandException(MESSAGE_NEED_MORE_THAN_ONE_CARD);
         }
 
-        MatchTest test = new MatchTest(cards);
+        MatchTest test = new MatchTest(tag, cards);
         AppState.setAppState(State.TESTM);
 
-        EventsCenter.getInstance().post(new StartTestMEvent(getQuestions(cards), getAnswers(cards)));
+        EventsCenter.getInstance().post(new StartTestEvent(test.getQuestions(), test.getAnswers()));
         test.startTimer();
         //        test.showResults();
         //        test.recordResults();
@@ -73,32 +66,6 @@ public class TestMCommand extends Command {
     public boolean equals(Object other) {
         // All the tests are different even if they have the same parameters.
         return other == this;
-    }
-
-    /**
-     * Retrieve an unmodifiable observable list of questions for the UI.
-     * @param cards The cards to retrieve the questions from.
-     * @return an unmodifiable observable list of questions
-     */
-    private ObservableList<Question> getQuestions(List<Card> cards) {
-        List<Question> questions = cards.stream()
-                .map(card -> card.getQuestion())
-                .collect(Collectors.toList());
-        Collections.shuffle(questions);
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(questions));
-    }
-
-    /**
-     * Retrieve an unmodifiable observable list of answers for the UI.
-     * @param cards The cards to retrieve the answers from.
-     * @return an unmodifiable observable list of answers
-     */
-    private ObservableList<Answer> getAnswers(List<Card> cards) {
-        List<Answer> answers = cards.stream()
-                .map(card -> card.getAnswer())
-                .collect(Collectors.toList());
-        Collections.shuffle(answers);
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(answers));
     }
 
 }

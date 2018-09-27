@@ -17,7 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.ui.StartTestMEvent;
+import seedu.address.commons.events.ui.StartTestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -220,7 +220,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleStartTestMEvent(StartTestMEvent event) {
+    private void handleStartTestMEvent(StartTestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         questionListPanel = new QuestionListPanel(event.getQuestions());

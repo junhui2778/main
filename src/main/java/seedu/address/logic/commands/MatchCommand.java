@@ -24,6 +24,7 @@ public class MatchCommand extends Command {
             + PREFIX_ANSWER + "4";
 
     public static final String MESSAGE_SUCCESS = "The question and answer matched correctly!";
+    private static final String MESSAGE_NOT_IN_MATCHING_TEST = "The undergoing test is not a matching test";
 
     private final Index questionIndex;
     private final Index answerIndex;

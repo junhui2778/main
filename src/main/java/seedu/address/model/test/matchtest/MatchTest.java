@@ -7,34 +7,57 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
+import seedu.address.model.card.Question;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.test.TriviaTest;
 
 /**
  * Represents a trivia test that is started by the user.
  */
-public class MatchTest {
+public class MatchTest extends TriviaTest {
     private final Date testDate;
-    private final List<Attempt> attempts;
-    private final List<Card> cards;
-    private double duration;
+    private final List<MatchAttempt> attempts;
 
-    public MatchTest(List<Card> cards) {
+    private double duration;
+    private Timer timer;
+
+    public MatchTest(Tag tag, List<Card> cards) {
+        super(tag, cards);
         testDate = new Date();
         attempts = new ArrayList<>();
-        duration = 0;
-        this.cards = cards;
     }
 
-    public void addAttempt(Card card, Answer matchedAnswer) {
-        attempts.add(new Attempt(card, matchedAnswer));
+    /**
+     * Add an attempt to the matching test.
+     *
+     * @param questionIndex The index of the question to match.
+     * @param answerIndex The index of the answer to match.
+     */
+    public void addAttempt(Index questionIndex, Index answerIndex) throws IndexOutOfBoundsException {
+        Question question = questions.get(questionIndex.getZeroBased());
+        Answer answer = answers.get(answerIndex.getZeroBased());
+
+        Card cardWithQuestion = cards.stream()
+                .filter(card -> card.getQuestion().equals(question))
+                .findFirst()
+                .orElseThrow(IndexOutOfBoundsException::new);
+        Card cardWithAnswer = cards.stream()
+                .filter(card -> card.getAnswer().equals(answer))
+                .findFirst()
+                .orElseThrow(IndexOutOfBoundsException::new);
+
+        attempts.add(new MatchAttempt(cardWithQuestion, cardWithAnswer));
     }
 
     /**
      * Start the matching test timer.
      */
     public void startTimer() {
-        Timer timer = new Timer();
+        duration = 0;
+        timer = new Timer();
         DecimalFormat timerFormat = new DecimalFormat("#.#");
         TimerTask task = new TimerTask() {
             @Override
@@ -45,5 +68,14 @@ public class MatchTest {
         };
 
         timer.scheduleAtFixedRate(task, 0, 100);
+    }
+
+    public void stopTimer() {
+        timer.cancel();
+    }
+
+    @Override
+    public String toString() {
+        return "A matching test for the tag of '" + tag.tagName + "'.";
     }
 }
