@@ -27,10 +27,6 @@ public abstract class TriviaTest {
         this.answers = getAnswers(cards);
     }
 
-    public Tag getTag() {
-        return tag;
-    }
-
     public abstract void startTest();
 
     public abstract void stopTest();

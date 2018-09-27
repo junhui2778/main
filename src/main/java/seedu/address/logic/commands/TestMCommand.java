@@ -42,8 +42,6 @@ public class TestMCommand extends Command {
         requireNonNull(model);
 
         List<Card> cards = model.getListOfCardFilteredByTag(new TagIsKeywordPredicate(tag.tagName));
-
-        cards.stream().forEach(System.out::println);
         if (cards.size() <= 1) {
             throw new CommandException(MESSAGE_NEED_MORE_THAN_ONE_CARD);
         }

@@ -45,6 +45,8 @@ public class MatchTest extends TriviaTest {
      * @param attempt The attempt that was made by the user in the matching test.
      */
     public void removeCardFromUi(MatchAttempt attempt) {
+        assert attempt.isCorrect(); // Ensure that attempt is correct before removing.
+
         questions.remove(attempt.getCardWithQuestion().getQuestion());
         answers.remove(attempt.getCardWithAnswer().getAnswer());
     }

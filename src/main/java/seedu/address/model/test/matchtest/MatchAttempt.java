@@ -7,17 +7,15 @@ import seedu.address.model.test.Attempt;
  * Represent an attempt to answer the question during a test.
  */
 public class MatchAttempt extends Attempt {
-    private final Card cardWithQuestion;
     private final Card cardWithAnswer;
 
     public MatchAttempt(Card cardWithQuestion, Card cardWithAnswer) {
-        super(cardWithQuestion.equals(cardWithAnswer));
-        this.cardWithQuestion = cardWithQuestion;
+        super(cardWithQuestion, cardWithQuestion.equals(cardWithAnswer));
         this.cardWithAnswer = cardWithAnswer;
     }
 
     public Card getCardWithQuestion() {
-        return cardWithQuestion;
+        return card;
     }
 
     public Card getCardWithAnswer() {
@@ -26,7 +24,7 @@ public class MatchAttempt extends Attempt {
 
     @Override
     public String toString() {
-        return "Attempted to match Question '" + cardWithQuestion.getQuestion().value
+        return "Attempted to match Question '" + card.getQuestion().value
                 + "' with Answer:'" + cardWithAnswer.getAnswer().value + "'.";
     }
 }
