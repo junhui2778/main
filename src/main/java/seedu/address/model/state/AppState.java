@@ -30,10 +30,15 @@ public class AppState {
             FindCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, HistoryCommand.COMMAND_WORD, ListCommand.COMMAND_WORD,
             RedoCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD, UndoCommand.COMMAND_WORD, TestMCommand.COMMAND_WORD));
 
-    private static final Set<String> testMCommands = new HashSet<>(Arrays.asList(MatchCommand.COMMAND_WORD));
+    private static final Set<String> testMCommands = new HashSet<>(Arrays.asList(MatchCommand.COMMAND_WORD,
+            ExitCommand.COMMAND_WORD));
 
     public static void setAppState(State state) {
         currentState = state;
+    }
+
+    public static boolean isInTestingState() {
+        return currentState == State.TEST || currentState == State.TESTM;
     }
 
     /**

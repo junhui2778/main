@@ -75,9 +75,7 @@ public class MatchTest extends TriviaTest {
         return newAttempt;
     }
 
-    /**
-     * Starts the test and the timer.
-     */
+    @Override
     public void startTest() {
         duration = 0;
         timer = new Timer();
@@ -95,11 +93,10 @@ public class MatchTest extends TriviaTest {
 
     }
 
-    /**
-     * Stops the test and the timer
-     */
+    @Override
     public void stopTest() {
         // TODO: Show the result screen.
+        // TODO: Record results if test did not end prematurely.
         timer.cancel();
         AppState.setAppState(State.NORMAL);
     }

@@ -6,7 +6,8 @@ import java.util.function.Predicate;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.events.ui.StartTestEvent;
+import seedu.address.commons.events.model.StartTestEvent;
+import seedu.address.commons.events.model.StopTestEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 import seedu.address.model.test.TriviaTest;
@@ -119,10 +120,16 @@ public interface Model {
     void commitTriviaBundle();
 
     /**
-     * Set a test to the trivia application model
+     * Set a test to the trivia application model.
      */
     @Subscribe
     void handleStartTestEvent(StartTestEvent event);
+
+    /**
+     * Stop a test in the trivia application model.
+     */
+    @Subscribe
+    void handleStopTestEvent(StopTestEvent event);
 
     /**
      * Obtain the trivia test that is running.

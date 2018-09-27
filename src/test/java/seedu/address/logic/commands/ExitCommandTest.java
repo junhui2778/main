@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT;
+import static seedu.address.logic.commands.ExitCommand.MESSAGE_EXIT_FROM_APP;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -23,7 +23,7 @@ public class ExitCommandTest {
     @Test
     public void execute_exit_success() {
         CommandResult result = new ExitCommand().execute(model, commandHistory);
-        assertEquals(MESSAGE_EXIT_ACKNOWLEDGEMENT, result.feedbackToUser);
+        assertEquals(MESSAGE_EXIT_FROM_APP, result.feedbackToUser);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }

@@ -1,15 +1,15 @@
-package seedu.address.commons.events.ui;
+package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.test.TriviaTest;
 
 /**
- * Indicates a new test will be starting.
+ * Stop a test that is running.
  */
-public class StartTestEvent extends BaseEvent {
+public class StopTestEvent extends BaseEvent {
     private TriviaTest test;
 
-    public StartTestEvent(TriviaTest test) {
+    public StopTestEvent(TriviaTest test) {
         this.test = test;
     }
 

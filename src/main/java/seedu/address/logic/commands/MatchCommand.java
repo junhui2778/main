@@ -4,7 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.events.model.StopTestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -28,8 +30,9 @@ public class MatchCommand extends Command {
 
     public static final String MESSAGE_MATCH_SUCCESS = "Perfect Match!";
     public static final String MESSAGE_MATCH_FAILURE = "Wrong Match!";
-    private static final String MESSAGE_NOT_IN_MATCHING_TEST = "The undergoing test is not a matching test";
-    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "The index specified is out of bound.";
+    public static final String MESSAGE_TEST_COMPLETED = "You have completed the test!";
+    public static final String MESSAGE_NOT_IN_MATCHING_TEST = "The undergoing test is not a matching test";
+    public static final String MESSAGE_INDEX_OUT_OF_BOUND = "The index specified is out of bound.";
 
     private final Index questionIndex;
     private final Index answerIndex;
@@ -62,6 +65,8 @@ public class MatchCommand extends Command {
 
         if (testM.isEndOfTest()) {
             testM.stopTest();
+            EventsCenter.getInstance().post(new StopTestEvent(model.getCurrentRunningTest()));
+            return new CommandResult(MESSAGE_TEST_COMPLETED);
         }
 
         return new CommandResult(String.format(MESSAGE_MATCH_SUCCESS));

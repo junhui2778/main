@@ -15,8 +15,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.StartTestEvent;
+import seedu.address.commons.events.model.StopTestEvent;
 import seedu.address.commons.events.model.TriviaBundleChangedEvent;
-import seedu.address.commons.events.ui.StartTestEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
 import seedu.address.model.test.TriviaTest;
@@ -224,6 +225,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void handleStartTestEvent(StartTestEvent event) {
         currentRunningTest = event.getTest();
+    }
+
+    @Override
+    public void handleStopTestEvent(StopTestEvent event) {
+        currentRunningTest = null;
     }
 
     @Override

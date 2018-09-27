@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * A base model for the different kinds tests.
  */
-public class TriviaTest {
+public abstract class TriviaTest {
     protected final Tag tag;
     protected final List<Card> cards;
     protected final ObservableList<Question> questions;
@@ -30,6 +30,10 @@ public class TriviaTest {
     public Tag getTag() {
         return tag;
     }
+
+    public abstract void startTest();
+
+    public abstract void stopTest();
 
     public ObservableList<Question> getQuestions() {
         return this.questions;

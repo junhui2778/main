@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.ui.StartTestEvent;
+import seedu.address.commons.events.model.StartTestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -52,9 +52,6 @@ public class TestMCommand extends Command {
 
         EventsCenter.getInstance().post(new StartTestEvent(test));
         test.startTest();
-        //        test.showResults();
-        //        test.recordResults();
-        //        test.navigateToHomePage();
 
         return new CommandResult(String.format(MESSAGE_SUCCESS));
     }

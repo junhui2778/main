@@ -15,7 +15,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.events.ui.StartTestEvent;
+import seedu.address.commons.events.model.StartTestEvent;
+import seedu.address.commons.events.model.StopTestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -200,6 +201,11 @@ public class AddCommandTest {
 
         @Override
         public void handleStartTestEvent(StartTestEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void handleStopTestEvent(StopTestEvent event) {
             throw new AssertionError("This method should not be called.");
         }
 

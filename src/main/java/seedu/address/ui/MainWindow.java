@@ -15,9 +15,10 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.StartTestEvent;
+import seedu.address.commons.events.model.StopTestEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.ui.StartTestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -220,7 +221,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     @Subscribe
-    private void handleStartTestMEvent(StartTestEvent event) {
+    private void handleStartTestEvent(StartTestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
         questionListPanel = new QuestionListPanel(event.getTest().getQuestions());
@@ -228,5 +229,13 @@ public class MainWindow extends UiPart<Stage> {
 
         answerListPanel = new AnswerListPanel(event.getTest().getAnswers());
         testMAnswerListPanelPlaceholder.getChildren().add(answerListPanel.getRoot());
+    }
+
+    @Subscribe
+    private void handleStopTestEvent(StopTestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        testMQuestionListPanelPlaceholder.getChildren().clear();
+        testMAnswerListPanelPlaceholder.getChildren().clear();
     }
 }
