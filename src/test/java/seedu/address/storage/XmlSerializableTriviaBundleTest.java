@@ -28,9 +28,9 @@ public class XmlSerializableTriviaBundleTest {
     public void toModelType_typicalCardsFile_success() throws Exception {
         XmlSerializableTriviaBundle dataFromFile = XmlUtil.getDataFromFile(TYPICAL_CARDS_FILE,
                 XmlSerializableTriviaBundle.class);
-        TriviaBundle TriviaBundleFromFile = dataFromFile.toModelType();
+        TriviaBundle triviaBundleFromFile = dataFromFile.toModelType();
         TriviaBundle typicalCardsTriviaBundle = TypicalCards.getTypicalTriviaBundle();
-        assertEquals(TriviaBundleFromFile, typicalCardsTriviaBundle);
+        assertEquals(triviaBundleFromFile, typicalCardsTriviaBundle);
     }
 
     @Test

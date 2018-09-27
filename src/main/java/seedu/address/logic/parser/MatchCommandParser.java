@@ -1,10 +1,6 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
-
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.MatchCommand;
@@ -20,25 +16,13 @@ public class MatchCommandParser implements Parser<MatchCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public MatchCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_QUESTION, PREFIX_ANSWER);
-
-        if (!arePrefixesPresent(argMultimap, PREFIX_QUESTION, PREFIX_ANSWER)
-                || !argMultimap.getPreamble().isEmpty()) {
+        String[] values = args.split(" ");
+        if (values.length < 2) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, MatchCommand.MESSAGE_USAGE));
         }
-
-        Index questionIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_QUESTION).get());
-        Index answerIndex = ParserUtil.parseIndex(argMultimap.getValue(PREFIX_ANSWER).get());
+        Index questionIndex = ParserUtil.parseIndex(values[0]);
+        Index answerIndex = ParserUtil.parseIndex(values[1]);
 
         return new MatchCommand(questionIndex, answerIndex);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

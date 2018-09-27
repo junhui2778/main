@@ -10,7 +10,9 @@ public class AppState {
         currentState = state;
     }
 
-    public static State getState() { return currentState; }
+    public static State getState() {
+        return currentState;
+    }
 
     public static boolean isInTestingState() {
         return currentState == State.TEST || currentState == State.TESTM;

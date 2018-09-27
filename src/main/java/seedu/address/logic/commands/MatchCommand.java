@@ -1,8 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ANSWER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_QUESTION;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
@@ -18,15 +16,11 @@ import seedu.address.model.test.matchtest.MatchTest;
  * The MatchCommand can only be used in a Matching test.
  */
 public class MatchCommand extends Command {
-    public static final String COMMAND_WORD = "match";
+    public static final String COMMAND_WORD = "";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Match a question to its answer. "
-            + "Parameters: "
-            + PREFIX_QUESTION + "INDEX_OF_QUESTION "
-            + PREFIX_ANSWER + "INDEX_OF_ANSWER"
-            + "Example: " + COMMAND_WORD + " "
-            + PREFIX_QUESTION + "1 "
-            + PREFIX_ANSWER + "4";
+    public static final String MESSAGE_USAGE = "Match a question to its answer. "
+            + "Parameters: INDEX_OF_QUESTION INDEX_OF_ANSWER \n"
+            + "Example: 1 4";
 
     public static final String MESSAGE_MATCH_SUCCESS = "Perfect Match!";
     public static final String MESSAGE_MATCH_FAILURE = "Wrong Match!";
@@ -40,6 +34,7 @@ public class MatchCommand extends Command {
     public MatchCommand(Index questionIndex, Index answerIndex) {
         this.questionIndex = questionIndex;
         this.answerIndex = answerIndex;
+
     }
 
     @Override
