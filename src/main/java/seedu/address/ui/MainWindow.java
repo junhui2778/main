@@ -17,6 +17,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.StartTestMEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -37,6 +38,8 @@ public class MainWindow extends UiPart<Stage> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private CardListPanel cardListPanel;
+    private QuestionListPanel questionListPanel;
+    private AnswerListPanel answerListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -61,6 +64,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane statusbarPlaceholder;
+
+    @FXML
+    private StackPane testMQuestionListPanelPlaceholder;
+
+    @FXML
+    private StackPane testMAnswerListPanelPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML, primaryStage);
@@ -208,5 +217,16 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleStartTestMEvent(StartTestMEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+
+        questionListPanel = new QuestionListPanel(event.getQuestions());
+        testMQuestionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
+
+        answerListPanel = new AnswerListPanel(event.getAnswers());
+        testMAnswerListPanelPlaceholder.getChildren().add(answerListPanel.getRoot());
     }
 }

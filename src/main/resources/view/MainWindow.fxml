@@ -46,6 +46,22 @@
           </padding>
         </StackPane>
 
+        <SplitPane id="testMSplitPane" fx:id="testMSplitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
+          <VBox fx:id="testMQuestionListView" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="testMQuestionListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+
+          <VBox fx:id="testMAnswerListView" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </padding>
+            <StackPane fx:id="testMAnswerListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+          </VBox>
+        </SplitPane>
+
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
           <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
             <padding>

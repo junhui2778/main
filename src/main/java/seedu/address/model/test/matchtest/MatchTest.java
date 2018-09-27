@@ -31,9 +31,9 @@ public class MatchTest {
     }
 
     /**
-     * Start the matching test.
+     * Start the matching test timer.
      */
-    public void start() {
+    public void startTimer() {
         Timer timer = new Timer();
         DecimalFormat timerFormat = new DecimalFormat("#.#");
         TimerTask task = new TimerTask() {

@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -147,6 +148,11 @@ public class AddCommandTest {
 
         @Override
         public ObservableList<Card> getFilteredCardList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public List<Card> getListOfCardFilteredByTag(Predicate<Card> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
