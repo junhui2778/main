@@ -8,6 +8,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.test.TriviaTest;
+import seedu.address.model.test.matchtest.MatchAttempt;
+import seedu.address.model.test.matchtest.MatchTest;
 
 /**
  * The MatchCommand can only be used in a Matching test.
@@ -23,8 +26,10 @@ public class MatchCommand extends Command {
             + PREFIX_QUESTION + "1 "
             + PREFIX_ANSWER + "4";
 
-    public static final String MESSAGE_SUCCESS = "The question and answer matched correctly!";
+    public static final String MESSAGE_MATCH_SUCCESS = "Perfect Match!";
+    public static final String MESSAGE_MATCH_FAILURE = "Wrong Match!";
     private static final String MESSAGE_NOT_IN_MATCHING_TEST = "The undergoing test is not a matching test";
+    private static final String MESSAGE_INDEX_OUT_OF_BOUND = "The index specified is out of bound.";
 
     private final Index questionIndex;
     private final Index answerIndex;
@@ -38,11 +43,28 @@ public class MatchCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
 
-        // TODO add logic to remove the cards when answered corrected
-        // TODO add logic to signal a wrong match
-        // TODO remember to change the AppState back to NORMAL
+        TriviaTest test = model.getCurrentRunningTest();
+        if (!(test instanceof MatchTest)) {
+            throw new CommandException(MESSAGE_NOT_IN_MATCHING_TEST);
+        }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS));
+        MatchTest testM = (MatchTest) test;
+        try {
+            MatchAttempt attempt = testM.addAttempt(questionIndex, answerIndex);
+            if (attempt.isCorrect()) {
+                testM.removeCardFromUi(attempt);
+            } else {
+                throw new CommandException(MESSAGE_MATCH_FAILURE);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            throw new CommandException(MESSAGE_INDEX_OUT_OF_BOUND);
+        }
+
+        if (testM.isEndOfTest()) {
+            testM.stopTest();
+        }
+
+        return new CommandResult(String.format(MESSAGE_MATCH_SUCCESS));
     }
 
     @Override

@@ -12,8 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.TagIsKeywordPredicate;
-import seedu.address.model.state.AppState;
-import seedu.address.model.state.State;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.test.matchtest.MatchTest;
 
@@ -51,10 +49,9 @@ public class TestMCommand extends Command {
         }
 
         MatchTest test = new MatchTest(tag, cards);
-        AppState.setAppState(State.TESTM);
 
-        EventsCenter.getInstance().post(new StartTestEvent(test.getQuestions(), test.getAnswers()));
-        test.startTimer();
+        EventsCenter.getInstance().post(new StartTestEvent(test));
+        test.startTest();
         //        test.showResults();
         //        test.recordResults();
         //        test.navigateToHomePage();

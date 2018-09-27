@@ -16,8 +16,10 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TriviaBundleChangedEvent;
+import seedu.address.commons.events.ui.StartTestEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
+import seedu.address.model.test.TriviaTest;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -30,6 +32,8 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedTriviaBundle versionedTriviaBundle;
     private final FilteredList<Card> filteredCards;
+
+    private TriviaTest currentRunningTest;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -45,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedTriviaBundle = null;
         filteredCards = null;
+        currentRunningTest = null;
     }
 
 
@@ -60,6 +65,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+
+        currentRunningTest = null;
     }
 
     public ModelManager() {
@@ -210,6 +217,18 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitTriviaBundle() {
         versionedTriviaBundle.commit();
+    }
+
+    //=========== Trivia Tests =============================================================
+
+    @Override
+    public void handleStartTestEvent(StartTestEvent event) {
+        currentRunningTest = event.getTest();
+    }
+
+    @Override
+    public TriviaTest getCurrentRunningTest() {
+        return currentRunningTest;
     }
 
     @Override

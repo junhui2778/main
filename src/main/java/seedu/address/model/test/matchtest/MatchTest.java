@@ -11,6 +11,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.card.Answer;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.Question;
+import seedu.address.model.state.AppState;
+import seedu.address.model.state.State;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.test.TriviaTest;
 
@@ -31,12 +33,31 @@ public class MatchTest extends TriviaTest {
     }
 
     /**
+     *
+     * @return a boolean to indicate whether the test has come to an end
+     */
+    public boolean isEndOfTest() {
+        return questions.isEmpty() && answers.isEmpty();
+    }
+
+    /**
+     * Remove the involved card that is answered correctly from the UI.
+     * @param attempt The attempt that was made by the user in the matching test.
+     */
+    public void removeCardFromUi(MatchAttempt attempt) {
+        questions.remove(attempt.getCardWithQuestion().getQuestion());
+        answers.remove(attempt.getCardWithAnswer().getAnswer());
+    }
+
+    /**
      * Add an attempt to the matching test.
      *
      * @param questionIndex The index of the question to match.
      * @param answerIndex The index of the answer to match.
+     * @return the new Matching attempt.
+     * @throws IndexOutOfBoundsException when the given index is out of range of the given answers or questions.
      */
-    public void addAttempt(Index questionIndex, Index answerIndex) throws IndexOutOfBoundsException {
+    public MatchAttempt addAttempt(Index questionIndex, Index answerIndex) throws IndexOutOfBoundsException {
         Question question = questions.get(questionIndex.getZeroBased());
         Answer answer = answers.get(answerIndex.getZeroBased());
 
@@ -49,13 +70,15 @@ public class MatchTest extends TriviaTest {
                 .findFirst()
                 .orElseThrow(IndexOutOfBoundsException::new);
 
-        attempts.add(new MatchAttempt(cardWithQuestion, cardWithAnswer));
+        MatchAttempt newAttempt = new MatchAttempt(cardWithQuestion, cardWithAnswer);
+        attempts.add(newAttempt);
+        return newAttempt;
     }
 
     /**
-     * Start the matching test timer.
+     * Starts the test and the timer.
      */
-    public void startTimer() {
+    public void startTest() {
         duration = 0;
         timer = new Timer();
         DecimalFormat timerFormat = new DecimalFormat("#.#");
@@ -68,10 +91,17 @@ public class MatchTest extends TriviaTest {
         };
 
         timer.scheduleAtFixedRate(task, 0, 100);
+        AppState.setAppState(State.TESTM);
+
     }
 
-    public void stopTimer() {
+    /**
+     * Stops the test and the timer
+     */
+    public void stopTest() {
+        // TODO: Show the result screen.
         timer.cancel();
+        AppState.setAppState(State.NORMAL);
     }
 
     @Override

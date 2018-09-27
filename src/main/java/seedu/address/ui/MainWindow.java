@@ -223,10 +223,10 @@ public class MainWindow extends UiPart<Stage> {
     private void handleStartTestMEvent(StartTestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
 
-        questionListPanel = new QuestionListPanel(event.getQuestions());
+        questionListPanel = new QuestionListPanel(event.getTest().getQuestions());
         testMQuestionListPanelPlaceholder.getChildren().add(questionListPanel.getRoot());
 
-        answerListPanel = new AnswerListPanel(event.getAnswers());
+        answerListPanel = new AnswerListPanel(event.getTest().getAnswers());
         testMAnswerListPanelPlaceholder.getChildren().add(answerListPanel.getRoot());
     }
 }

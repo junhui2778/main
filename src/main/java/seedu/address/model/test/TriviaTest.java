@@ -38,14 +38,14 @@ public class TriviaTest {
     /**
      * Retrieve an unmodifiable observable list of questions for the UI.
      * @param cards The cards to retrieve the questions from.
-     * @return an unmodifiable observable list of questions
+     * @return an observable list of questions
      */
     private ObservableList<Question> getQuestions(List<Card> cards) {
         List<Question> questions = cards.stream()
                 .map(card -> card.getQuestion())
                 .collect(Collectors.toList());
         Collections.shuffle(questions);
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(questions));
+        return FXCollections.observableList(questions);
     }
 
     public ObservableList<Answer> getAnswers() {
@@ -55,14 +55,14 @@ public class TriviaTest {
     /**
      * Retrieve an unmodifiable observable list of answers for the UI.
      * @param cards The cards to retrieve the answers from.
-     * @return an unmodifiable observable list of answers
+     * @return an observable list of answers
      */
     private ObservableList<Answer> getAnswers(List<Card> cards) {
         List<Answer> answers = cards.stream()
                 .map(card -> card.getAnswer())
                 .collect(Collectors.toList());
         Collections.shuffle(answers);
-        return FXCollections.unmodifiableObservableList(FXCollections.observableList(answers));
+        return FXCollections.observableList(answers);
     }
 
     @Override

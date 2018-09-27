@@ -3,9 +3,13 @@ package seedu.address.model;
 import java.util.List;
 import java.util.function.Predicate;
 
+import com.google.common.eventbus.Subscribe;
+
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.ui.StartTestEvent;
 import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
+import seedu.address.model.test.TriviaTest;
 
 /**
  * The API of the Model component.
@@ -113,4 +117,15 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitTriviaBundle();
+
+    /**
+     * Set a test to the trivia application model
+     */
+    @Subscribe
+    void handleStartTestEvent(StartTestEvent event);
+
+    /**
+     * Obtain the trivia test that is running.
+     */
+    TriviaTest getCurrentRunningTest();
 }

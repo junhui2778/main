@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.events.ui.StartTestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -23,6 +24,7 @@ import seedu.address.model.ReadOnlyTriviaBundle;
 import seedu.address.model.TriviaBundle;
 import seedu.address.model.card.Card;
 import seedu.address.model.person.Person;
+import seedu.address.model.test.TriviaTest;
 import seedu.address.testutil.CardBuilder;
 
 public class AddCommandTest {
@@ -193,6 +195,16 @@ public class AddCommandTest {
 
         @Override
         public void commitTriviaBundle() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void handleStartTestEvent(StartTestEvent event) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public TriviaTest getCurrentRunningTest() {
             throw new AssertionError("This method should not be called.");
         }
     }

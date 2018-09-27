@@ -10,7 +10,7 @@ public class Attempt {
         this.correctness = correctness;
     }
 
-    public boolean getCorrectness() {
+    public boolean isCorrect() {
         return correctness;
     }
 }

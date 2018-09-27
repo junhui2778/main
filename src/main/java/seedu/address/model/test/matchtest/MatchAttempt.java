@@ -16,6 +16,14 @@ public class MatchAttempt extends Attempt {
         this.cardWithAnswer = cardWithAnswer;
     }
 
+    public Card getCardWithQuestion() {
+        return cardWithQuestion;
+    }
+
+    public Card getCardWithAnswer() {
+        return cardWithAnswer;
+    }
+
     @Override
     public String toString() {
         return "Attempted to match Question '" + cardWithQuestion.getQuestion().value

@@ -1,20 +1,16 @@
 package seedu.address.commons.events.ui;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.card.Answer;
-import seedu.address.model.card.Question;
+import seedu.address.model.test.TriviaTest;
 
 /**
  * Indicates a new test will be starting.
  */
 public class StartTestEvent extends BaseEvent {
-    private ObservableList<Question> questions;
-    private ObservableList<Answer> answers;
+    private TriviaTest test;
 
-    public StartTestEvent(ObservableList<Question> questions, ObservableList<Answer> answers) {
-        this.questions = questions;
-        this.answers = answers;
+    public StartTestEvent(TriviaTest test) {
+        this.test = test;
     }
 
     @Override
@@ -22,11 +18,7 @@ public class StartTestEvent extends BaseEvent {
         return getClass().getSimpleName();
     }
 
-    public ObservableList<Question> getQuestions() {
-        return questions;
-    }
-
-    public ObservableList<Answer> getAnswers() {
-        return answers;
+    public TriviaTest getTest() {
+        return test;
     }
 }
