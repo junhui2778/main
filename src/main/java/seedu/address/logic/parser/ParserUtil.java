@@ -144,6 +144,18 @@ public class ParserUtil {
     }
 
     /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
+        requireNonNull(tags);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(parseTag(tagName));
+        }
+        return tagSet;
+    }
+
+    /**
      * Parses {@code String timeLimit} into a float
      *
      * @throws ParseException if the given {@code timeLimit} is invalid
@@ -155,17 +167,5 @@ public class ParserUtil {
             throw new ParseException(TimeLimit.MESSAGE_TIME_LIMIT_CONSTRAINTS);
         }
         return new TimeLimit(trimmedTimeLimit);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
     }
 }

@@ -17,6 +17,10 @@ public class TimeLimit {
         this.value = Float.parseFloat(value);
     }
 
+    public float getValue() {
+        return value;
+    }
+
     /**
      * Returns if a given string is a valid time limit.
      */

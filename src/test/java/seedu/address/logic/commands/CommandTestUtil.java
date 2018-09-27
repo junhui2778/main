@@ -15,6 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.TriviaBundle;
 import seedu.address.model.card.Card;
 import seedu.address.model.card.QuestionContainsKeywordsPredicate;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
@@ -113,7 +114,16 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+        List<Person> expectedPersonFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+
+        TriviaBundle expectedTriviaBundle = null;
+        List<Card> expectedCardFilteredList = null;
+
+        // For addressbook tests that doesn't account for trivia bundle.
+        if (actualModel.getTriviaBundle() != null) {
+            expectedTriviaBundle = new TriviaBundle(actualModel.getTriviaBundle());
+            expectedCardFilteredList = new ArrayList<>(actualModel.getFilteredCardList());
+        }
 
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -123,7 +133,12 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+            assertEquals(expectedPersonFilteredList, actualModel.getFilteredPersonList());
+            // For addressbook tests that doesn't account for trivia bundle.
+            if (expectedTriviaBundle != null) {
+                assertEquals(expectedTriviaBundle, actualModel.getTriviaBundle());
+                assertEquals(expectedCardFilteredList, actualModel.getFilteredCardList());
+            }
             assertEquals(expectedCommandHistory, actualCommandHistory);
         }
     }

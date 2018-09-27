@@ -3,30 +3,42 @@ package seedu.address.model.test.matchtest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_GIT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_NO_TAG;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_PHYSICS;
 import static seedu.address.testutil.TypicalCards.Q_DENISTY_FORMULA;
 import static seedu.address.testutil.TypicalCards.Q_EARTH_ROUND;
 import static seedu.address.testutil.TypicalCards.Q_FORCE_FORMULA;
 
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.card.TagIsKeywordPredicate;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.TypicalCards;
 import seedu.address.testutil.TypicalPersons;
 
 public class MatchTestTest {
-    @Test
-    public void test_matchTest() {
-        ModelManager model = new ModelManager(TypicalPersons.getTypicalAddressBook(),
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private ModelManager model;
+    private MatchTest matchTest;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(TypicalPersons.getTypicalAddressBook(),
                 TypicalCards.getTypicalTriviaBundle(), new UserPrefs());
-        TagIsKeywordPredicate tagToTest = new TagIsKeywordPredicate(VALID_TAG_PHYSICS);
 
         // There will be 3 cards in this matchTest
-        MatchTest matchTest = new MatchTest(new Tag(VALID_TAG_PHYSICS), model.getListOfCardFilteredByTag(tagToTest));
+        matchTest = new MatchTest(new Tag(VALID_TAG_PHYSICS), model);
+    }
 
+    @Test
+    public void test_matchTest() {
         assertEquals(matchTest.getAnswers().size(), matchTest.getQuestions().size());
         assertEquals(matchTest.getAnswers().size(), 3);
 
@@ -41,5 +53,31 @@ public class MatchTestTest {
         matchTest.removeCardFromUi(new MatchAttempt(Q_FORCE_FORMULA, Q_FORCE_FORMULA));
 
         assertTrue(matchTest.isEndOfTest());
+    }
+
+    @Test
+    public void invalid_matchTest() {
+        thrown.expect(IllegalArgumentException.class);
+        matchTest = new MatchTest(new Tag(VALID_TAG_NO_TAG), model);
+    }
+
+    @Test
+    public void equals() {
+        // same values -> returns true
+        MatchTest matchTestCopy = new MatchTest(matchTest.getTag(), model);
+        assertTrue(matchTest.equals(matchTestCopy));
+
+        // same object -> returns true
+        assertTrue(matchTest.equals(matchTest));
+
+        // null -> returns false
+        assertFalse(matchTest.equals(null));
+
+        // different type -> returns false
+        assertFalse(matchTest.equals(5));
+
+        // different cards being tested -> returns false
+        assertFalse(matchTest.equals(new MatchTest(new Tag(VALID_TAG_GIT), model)));
+
     }
 }

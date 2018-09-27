@@ -2,9 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.events.model.StopTestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -60,7 +58,6 @@ public class MatchCommand extends Command {
 
         if (testM.isEndOfTest()) {
             testM.stopTest();
-            EventsCenter.getInstance().post(new StopTestEvent(model.getCurrentRunningTest()));
             return new CommandResult(MESSAGE_TEST_COMPLETED);
         }
 

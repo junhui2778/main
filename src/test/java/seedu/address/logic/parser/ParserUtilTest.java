@@ -21,6 +21,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.test.TimeLimit;
 import seedu.address.testutil.Assert;
 
 public class ParserUtilTest {
@@ -204,5 +205,14 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseTimeLimit() throws Exception {
+        assertEquals(new TimeLimit("2"), ParserUtil.parseTimeLimit("  2   "));
+
+        thrown.expect(ParseException.class);
+        ParserUtil.parseTimeLimit("notTimeLimit");
+        ParserUtil.parseTimeLimit("-5");
     }
 }

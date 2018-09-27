@@ -254,8 +254,10 @@ public class ModelManager extends ComponentManager implements Model {
         return (versionedAddressBook.equals(other.versionedAddressBook)
                 && filteredPersons.equals(other.filteredPersons))
                 && (versionedTriviaBundle == null // short circuit for regression compatibility with addressbook
-                        || (versionedTriviaBundle.equals(other.versionedTriviaBundle)
-                        && filteredCards.equals(other.filteredCards)));
+                    || (versionedTriviaBundle.equals(other.versionedTriviaBundle)
+                    && filteredCards.equals(other.filteredCards)))
+                && ((currentRunningTest == null && other.currentRunningTest == null)
+                    || currentRunningTest.equals(other.currentRunningTest));
     }
 
 }

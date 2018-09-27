@@ -65,8 +65,8 @@ public abstract class TriviaTest {
         return FXCollections.observableList(answers);
     }
 
-    @Override
-    public String toString() {
-        return "A test for the tag of '" + tag.tagName + "'.";
+    public Tag getTag() {
+        return tag;
     }
+
 }

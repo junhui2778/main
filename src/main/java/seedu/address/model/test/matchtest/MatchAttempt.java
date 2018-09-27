@@ -22,9 +22,4 @@ public class MatchAttempt extends Attempt {
         return cardWithAnswer;
     }
 
-    @Override
-    public String toString() {
-        return "Attempted to match Question '" + card.getQuestion().value
-                + "' with Answer:'" + cardWithAnswer.getAnswer().value + "'.";
-    }
 }

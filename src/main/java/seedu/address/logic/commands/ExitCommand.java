@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.model.StopTestEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -24,7 +23,6 @@ public class ExitCommand extends Command {
         if (AppState.isInTestingState()) {
             TriviaTest currentTest = model.getCurrentRunningTest();
             currentTest.stopTest();
-            EventsCenter.getInstance().post(new StopTestEvent(currentTest));
             return new CommandResult(MESSAGE_EXIT_FROM_TEST);
         } else {
             EventsCenter.getInstance().post(new ExitAppRequestEvent());
